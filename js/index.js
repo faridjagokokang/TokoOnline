@@ -222,8 +222,22 @@ function loadDummyProducts() {
       id: 13,
       img: 'gambar/teh-tarik-bakar.jpg',
       name: 'teh tarik bakar',
-      price: 30000,
-      Desc: 'rasanya mantap, Gurih, dan semlehot'
+      price: 15000,
+      Desc: 'rasanya mantap, seger, dan cihuy'
+    },
+    {
+      id: 14,
+      img: 'gambar/teh-tarik.jpg',
+      name: 'teh tarik',
+      price: 5000,
+      Desc: 'rasanya mantap, seger, dan cihuy'
+    },
+    {
+      id: 15,
+      img: 'gambar/teh-tarik-bakar.jpg',
+      name: 'teh tarik bakar',
+      price: 15000,
+      Desc: 'rasanya mantap, seger, dan cihuy'
     },
   ];
 
