@@ -197,6 +197,34 @@ function loadDummyProducts() {
       price: 10000,
       Desc: 'Asin, Gurih, dan Maknyus'
     },
+    {
+      id: 10,
+      img: 'gambar/Sushi-garing-lendra.jpg',
+      name: 'Ikan Asin lendra',
+      price: 20000,
+      Desc: 'rasanya mantap, Gurih, dan semlehot'
+    },
+    {
+      id: 11,
+      img: 'gambar/Sushi-garing-teri.jpg',
+      name: 'Ikan Asin Teri',
+      price: 20000,
+      Desc: 'rasanya mantap, Gurih, dan semlehot'
+    },
+    {
+      id: 12,
+      img: 'gambar/Sushi-garing-peda.jpg',
+      name: 'Ikan Asin peda',
+      price: 30000,
+      Desc: 'rasanya mantap, Gurih, dan semlehot'
+    },
+     {
+      id: 13,
+      img: 'gambar/teh-tarik-bakar.jpg',
+      name: 'teh tarik bakar',
+      price: 30000,
+      Desc: 'rasanya mantap, Gurih, dan semlehot'
+    },
   ];
 
   const grid = document.getElementById('productGrid');
