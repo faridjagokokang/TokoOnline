@@ -1,762 +1,85 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>DapoerUyut — Modern Blue (Fixed)</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    /* ===== Modern Blue theme (clean) ===== */
-    :root{
-      --bg-a:#ffffff; --bg-b:#ffffff;
-      --card:#ffffff;
-      --accent:#f50707cb; --accent-2:#060600;
-      --muted:#000000; --success:#ffffff; --danger:#ef4444;
-      --glass: rgba(247, 207, 9, 0.929);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
-      background:linear-gradient(180deg,var(--bg-a),var(--bg-b));color:#07122a;
-      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-      min-height:100vh;padding-bottom:60px;
-    }
-    header{
-      display:flex;align-items:center;justify-content:space-between;padding:12px 20px;
-      background:linear-gradient(90deg, rgba(255,255,255,0.7), rgba(255, 255, 255, 0.4));
-      position:sticky;top:0;z-index:40;border-bottom:1px solid rgba(255, 192, 3, 0.04);
-    }
-    .logo{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent-2);font-size:1.05rem}
-    nav ul{display:flex;gap:16px;list-style:none;margin:0;padding:0}
-    nav a{color:var(--accent-2);text-decoration:none;font-weight:600}
-    .nav-actions{display:flex;align-items:center;gap:10px}
-    .icon-btn{background:transparent;border:none;padding:8px;border-radius:10px;cursor:pointer;color:var(--accent-2);font-size:1rem}
-    .icon-btn:hover{background:rgba(255, 226, 4, 0.911)}
-    .badge{background:var(--danger);color:#fff;border-radius:999px;padding:2px 7px;font-size:.72rem;display:none}
-    .container{max-width:1100px;margin:22px auto;padding:0 18px}
-    .hero{display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(180deg,rgba(14,165,255,0.06),rgba(6,95,170,0.03));padding:20px;border-radius:12px}
-    .hero h1{margin:0;color:var(--accent-2)}
-    .primary-btn{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700}
-    .primary-btn:hover{background:var(--accent-2)}
-    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
-    /* products */
-    #products-section{padding:16px;border-radius:10px}
-    .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-    .controls input,.controls select{padding:10px;border-radius:8px;border:1px solid rgba(6,30,60,0.06)}
-    .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-    .product-card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 8px 20px rgba(6,30,60,0.04);display:flex;flex-direction:column;gap:10px;cursor:pointer}
-    .product-card img{width:100%;height:140px;object-fit:cover;border-radius:8px}
-    .product-card h4{margin:0;font-size:1rem;color:#06203a}
-    .price{font-weight:700;color:var(--accent-2)}
-    .muted{color:var(--muted);font-size:.9rem}
-    .actions{display:flex;gap:8px;justify-content:center}
-    .actions button{background:transparent;border:1px solid rgba(6,30,60,0.06);padding:8px;border-radius:8px;cursor:pointer;color:var(--accent-2)}
-    /* cart sidebar */
-    aside.cart{background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.8));padding:12px;border-radius:10px;box-shadow:0 8px 22px rgba(6,30,60,0.04)}
-    .cart-header{display:flex;justify-content:space-between;align-items:center}
-    .cart-items{display:flex;flex-direction:column;gap:10px;max-height:360px;overflow:auto;padding-right:6px}
-    .cart-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.6)}
-    .cart-item img{width:60px;height:60px;object-fit:cover;border-radius:8px}
-    .qty-controls button{background:transparent;border:1px solid rgba(6,30,60,0.06);padding:6px;border-radius:6px;cursor:pointer}
-    .cart-footer{margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-    /* modal */
-    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:flex;align-items:center;justify-content:center;z-index:60;padding:18px}
-    .modal.hidden{display:none}
-    .modal-card{width:100%;max-width:640px;background:var(--card);padding:16px;border-radius:12px;box-shadow:0 14px 40px rgba(6,30,60,0.12)}
-    .close-btn{float:right;background:transparent;border:none;font-size:1.05rem;cursor:pointer;color:var(--muted)}
-    form .field{margin-top:10px}
-    form input, form select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(6,30,60,0.06)}
-    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;z-index:120}
-    .toast.hidden{display:none}
-    /* admin */
-    .admin-bar{display:flex;gap:8px;align-items:center}
-    /* responsive */
-    @media (max-width:980px){ .grid{grid-template-columns:1fr} .product-card img{height:120px} }
-    @media (max-width:520px){ header{padding:10px} .logo{font-size:0.95rem} nav ul{display:none} }
-    /* dark mode */
-    body.dark{background:linear-gradient(180deg,#071229,#04203a);color:#e6f6ff}
-    body.dark .product-card{background:#07243a;color:#e6f6ff}
-    body.dark .modal-card{background:#07243a;color:#e6f6ff}
-    .actions .delete-product:hover {
-      background: rgba(239, 68, 68, 0.08);
-    }
-    .promo-carousel {
-  position: relative;
-  max-width: 850px;
-  margin: 0 auto;
-  overflow: hidden;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-}
-
-.promo-slide {
-  display: none;
-  position: relative;
-  width: 100%;
-  height: 420px;
-}
-
-.promo-slide.active {
-  display: block;
-  animation: fadeSlide 1s ease-in-out;
-}
-
-.promo-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.promo-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 25px;
-  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-  color: white;
-  text-align: left;
-}
-
-.promo-caption h3 {
-  margin: 0;
-  font-size: 1.3em;
-  color: #f5f5f5;
-}
-
-.promo-caption p {
-  margin-top: 4px;
-  font-size: 0.95em;
-  color: #ffffff;
-}
-
-@keyframes fadeSlide {
-  from { opacity: 0; transform: scale(1.02); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-  </style>
+  <meta charset="UTF-8">
+  <title>NeoShop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+
+<header class="header">
+  <div class="header-top">
+    <button id="hamburger" class="hamburger">☰</button>
+    <div id="logo" data-nav="home">DapoerUyut</div>
+    <div id="cartBtn" data-nav="cart">
+      🛒 <span id="cartCount">0</span>
+    </div>
+  </div>
+
+  <div class="header-bottom">
+    <input id="search" placeholder="Cari produk...">
+  </div>
+</header>
+
+<!-- SIDE MENU -->
+<div id="sideMenu" class="side-menu hidden">
+  <div data-nav="home">🏠 Home</div>
+  <div data-nav="orders">📦 Pesanan</div>
+  <div data-nav="profile">👤 Akun</div>
+</div>
+
+<div id="loginBanner">
+  <p>Tak kenal maka tak sayang</p>
+  <a href="login.html"><button id="loginBtn">Login</button></a>
+</div>
+
+<main id="app">
+  <!-- Poster Promosi -->
+   <section id="promoBanner" class="page">
+    <img src="images/promo.jpg" alt="Promo Banner" style="width: 100%;">
+  </section>
+
+  <section id="home" class="page active">
+    <div class="banner">FLASH SALE HARI INI</div>
+    <div id="productGrid" class="grid"></div>
+  </section>
+
+  <section id="cart" class="page">
+    <h3>Keranjang</h3>
+    <div id="cartItems"></div>
+    <p>Total: Rp <span id="total">0</span></p>
+    <button id="checkoutBtn">Checkout</button>
+  </section>
+
+  <section id="orders" class="page">
+    <h3>Pesanan Saya</h3>
+    <div id="orderList"></div>
+  </section>
+
+  <section id="profile" class="page">
+    <h3>Akun</h3>
+    <div id="authArea"></div>
+  </section>
+
+</main>
+
+<div id="chatBox" class="chat hidden">
   <header>
-    <div style="display:flex;align-items:center;gap:14px">
-      <div class="logo">🍲 <span>DapoerUyut</span></div>
-      <nav>
-        <ul>
-          <li><a href="#home">Beranda</a></li>
-          <li><a href="#products-section">Produk</a></li>
-          <li><a href="#promo">Promo</a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <div class="nav-actions">
-      <div id="admin-controls" class="admin-bar" style="display:none">
-        <button id="add-product-btn" class="icon-btn" title="Tambah Produk (Admin)"><i class="fas fa-plus"></i></button>
-      </div>
-      <button id="wishlist-btn" class="icon-btn" title="Wishlist"><i class="fas fa-heart"></i><span id="wishlist-count" class="badge">0</span></button>
-      <button id="cart-btn" class="icon-btn" title="Keranjang"><i class="fas fa-shopping-cart"></i><span id="cart-count" class="badge">0</span></button>
-      <button id="order-history-btn" class="icon-btn" title="Riwayat Pesanan"><i class="fas fa-receipt"></i></button>
-      <button id="login-btn" class="icon-btn" title="Login"><i class="fas fa-user"></i></button>
-      <button id="theme-toggle" class="icon-btn" title="Ganti Tema"><i class="fas fa-moon"></i></button>
-    </div>
+    Customer Service
+    <span id="closeChat">✖</span>
   </header>
-
-  <main class="container">
-    <section id="home" class="hero">
-      <div>
-        <h1>DapoerUyut</h1>
-        <p style="color:var(--muted)">Selamat datang — makanan & minuman tradisional dengan tampilan modern.</p>
-        <div style="margin-top:12px">
-          <button id="shop-now" class="primary-btn"><i class="fas fa-shopping-basket"></i> Belanja Sekarang</button>
-        </div>
-      </div>
-      <section id="promo" style="padding:40px 0;text-align:center;">
-        <h2 style="color:var(--primary);margin-bottom:20px;"><i class="fas fa-gift"></i> Promo Spesial</h2>
-
-        <div class="promo-carousel">
-            <div class="promo-slide active">
-              <img src="gambar/ccvv.jpg (950×1188) - Google Chrome 12_11_2025 18.26.19.png" alt="Promo 1">
-              <div class="promo-caption">
-                <h3>Paket Hemat Ayam Geprek</h3>
-                <p>Diskon 10% setiap pembelian sebelum jam 12 siang!</p>
-              </div>
-            </div>
-
-          <div class="promo-slide">
-            <img src="gambar/Screenshot (347).png" alt="Promo 2">
-            <div class="promo-caption">
-              <h3>Gratis Ongkir</h3>
-              <p>Untuk pesanan di atas Rp200.000!</p>
-            </div>
-          </div>
-
-          <div class="promo-slide">
-            <img src="https://images.unsplash.com/photo-1590080875831-5b1bf9b5f1a5?auto=format&fit=crop&w=1200&q=80" alt="Promo 3">
-            <div class="promo-caption">
-              <h3>Beli 2 Gratis 1</h3>
-              <p>Untuk semua menu minuman tradisional favorit!</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <div class="grid">
-      <section id="products-section">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3><i class="fas fa-utensils"></i> Produk Kami</h3>
-          <div style="color:var(--muted)">Total: <span id="total-products">0</span></div>
-        </div>
-
-        <div class="controls" style="margin-top:12px">
-          <input id="search-input" placeholder="Cari produk..." />
-          <select id="category-filter"></select>
-          <button id="reset-filter" class="primary-btn" style="background:transparent;border:1px solid var(--accent);color:var(--accent)">Reset</button>
-        </div>
-
-        <div id="product-grid" class="product-grid" aria-live="polite"></div>
-      </section>
-
-      <aside class="cart" aria-label="Keranjang">
-        <div class="cart-header">
-          <div><strong><i class="fas fa-shopping-cart"></i> Keranjang</strong></div>
-          <div><button id="close-cart" class="icon-btn" title="Tutup"><i class="fas fa-times"></i></button></div>
-        </div>
-
-        <div id="cart-items" class="cart-items"></div>
-
-        <div class="cart-footer">
-          <div><strong id="cart-total">Rp0</strong></div>
-          <div style="display:flex;gap:8px">
-            <button id="checkout-btn" class="primary-btn">Checkout</button>
-            <button id="clear-cart" class="icon-btn" title="Kosongkan"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </main>
-
-  <!-- MODALS -->
-  <div id="product-modal" class="modal hidden" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <button id="close-modal" class="close-btn" aria-label="Tutup">&times;</button>
-      <div id="modal-body"></div>
-    </div>
-  </div>
-
-  <div id="auth-modal" class="modal hidden" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <button id="close-auth" class="close-btn" aria-label="Tutup">&times;</button>
-      <h3 id="auth-title">Masuk ke DapoerUyut</h3>
-      <form id="auth-form">
-        <div class="field"><input id="auth-identifier" placeholder="Email atau username" required /></div>
-        <div class="field"><input id="auth-password" type="password" placeholder="Password" required /></div>
-        <div style="display:flex;gap:8px;margin-top:10px">
-          <button type="submit" class="primary-btn">Masuk</button>
-          <button id="switch-register" type="button" class="icon-btn">Daftar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div id="checkout-modal" class="modal hidden" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <button id="close-checkout" class="close-btn" aria-label="Tutup">&times;</button>
-      <h3>Formulir Checkout</h3>
-      <form id="checkout-form">
-        <div class="field"><input placeholder="Nama Anda" required /></div>
-        <div class="field"><input placeholder="Alamat Pengiriman" required /></div>
-        <div class="field"><input placeholder="Nomor Telepon" required /></div>
-        <div style="display:flex;gap:8px;margin-top:10px">
-          <button type="submit" class="primary-btn">Kirim Pesanan</button>
-          <button id="close-checkout-2" type="button" class="icon-btn">Batal</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <div id="add-product-modal" class="modal hidden" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <button id="close-add-product" class="close-btn" aria-label="Tutup">&times;</button>
-      <h3>Tambah Produk Baru</h3>
-      <form id="add-product-form">
-        <div class="field"><input id="p-name" placeholder="Nama Produk" required /></div>
-        <div class="field"><input id="p-price" type="number" placeholder="Harga (angka)" required /></div>
-        <div class="field">
-          <select id="p-category">
-            <option>Makanan</option>
-            <option>Minuman</option>
-            <option>Frozen Food</option>
-            <option>Paket</option>
-          </select>
-        </div>
-        <div class="field"><input id="p-image" placeholder="URL Gambar (opsional)" /></div>
-        <div style="display:flex;gap:10px;margin-top:10px">
-          <button type="submit" class="primary-btn">Tambah</button>
-          <button id="cancel-add-product" type="button" class="icon-btn">Batal</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Toast -->
-  <div id="toast" class="toast hidden" role="status" aria-live="polite">Notif</div>
-
-  <script>
-    // === PROMO CAROUSEL ===
-let promoIndex = 0;
-const slides = document.querySelectorAll('.promo-slide');
-
-function showNextPromo() {
-  slides[promoIndex].classList.remove('active');
-  promoIndex = (promoIndex + 1) % slides.length;
-  slides[promoIndex].classList.add('active');
-}
-
-setInterval(showNextPromo, 4000); // Ganti setiap 4 detik
-
-  /* ===== Storage wrapper (fallback mem if localStorage unavailable) ===== */
-  const storageAvailable = (() => {
-    try { const k='__du_test__'; localStorage.setItem(k,k); localStorage.removeItem(k); return true; } catch(e){ return false; }
-  })();
-  const memStore = {};
-  const S = {
-    get(k){ try { if(storageAvailable) return localStorage.getItem(k); return memStore[k]||null; } catch(e){ return memStore[k]||null; } },
-    set(k,v){ try { if(storageAvailable) localStorage.setItem(k,v); else memStore[k]=v; } catch(e){ memStore[k]=v; } },
-    remove(k){ try { if(storageAvailable) localStorage.removeItem(k); else delete memStore[k]; } catch(e){ delete memStore[k]; } }
-  };
-
-  /* ===== Keys & default data ===== */
-  const KEY_CART="du_cart_v3", KEY_WISHLIST="du_wishlist_v3", KEY_ORDERS="du_orders_v3", KEY_USERS="du_users_v3", KEY_USER="du_user_v3", KEY_THEME="du_theme_v3", KEY_PRODUCTS="du_products_v3";
-
-  // default users
-  (function ensureUsers(){
-    if(!S.get(KEY_USERS)){
-      const def=[{username:"admin",password:"admin123",role:"admin",email:"admin@dapoeruyut.local"},{username:"user",password:"user123",role:"customer",email:"user@dapoeruyut.local"}];
-      S.set(KEY_USERS, JSON.stringify(def));
-    }
-  })();
-
-  // default products
-  (function ensureProducts(){
-    if(!S.get(KEY_PRODUCTS)){
-      const def=[
-        {id:1,name:"Nasi Liwet",price:22000,category:"Makanan",image:"https://images.unsplash.com/photo-1617196031234-b59ab17c5c6f?auto=format&fit=crop&w=800&q=80",desc:"Nasi liwet hangat dengan lauk tradisional."},
-        {id:2,name:"Es Cendol Segar",price:10000,category:"Minuman",image:"https://images.unsplash.com/photo-1562003389-d1b1b09f4d21?auto=format&fit=crop&w=800&q=80",desc:"Cendol manis segar, pelepas dahaga."},
-        {id:3,name:"Paket Hemat (Nasi + Teh)",price:28000,category:"Paket",image:"https://images.unsplash.com/photo-1542444459-db5bb0f7b7d6?auto=format&fit=crop&w=800&q=80",desc:"Paket hemat untuk 1 orang."},
-        {id:4,name:"Ayam Goreng Matang",price:25000,category:"Makanan",image:"https://images.unsplash.com/photo-1606756790138-55cb5d20ad10?auto=format&fit=crop&w=800&q=80",desc:"Ayam goreng renyah."},
-        {id:5,name:"Teh Manis Dingin",price:5000,category:"Minuman",image:"https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80",desc:"Teh manis dingin segar."}
-      ];
-      S.set(KEY_PRODUCTS, JSON.stringify(def));
-    }
-  })();
-
-  /* ===== Runtime state ===== */
-  let cart = JSON.parse(S.get(KEY_CART) || "[]");
-  let wishlist = JSON.parse(S.get(KEY_WISHLIST) || "[]");
-  let orders = JSON.parse(S.get(KEY_ORDERS) || "[]");
-  let currentUser = JSON.parse(S.get(KEY_USER) || "null");
-  let products = JSON.parse(S.get(KEY_PRODUCTS) || "[]");
-
-  /* ===== Elements ===== */
-  const els = {};
-  function mapEls(){
-    els.wishlistBtn = document.getElementById('wishlist-btn');
-    els.wishlistCount = document.getElementById('wishlist-count');
-    els.cartBtn = document.getElementById('cart-btn');
-    els.cartCount = document.getElementById('cart-count');
-    els.orderHistoryBtn = document.getElementById('order-history-btn');
-    els.loginBtn = document.getElementById('login-btn');
-    els.themeToggle = document.getElementById('theme-toggle');
-    els.addProductBtn = document.getElementById('add-product-btn');
-    els.adminControls = document.getElementById('admin-controls');
-
-    els.productGrid = document.getElementById('product-grid');
-    els.totalProducts = document.getElementById('total-products');
-    els.searchInput = document.getElementById('search-input');
-    els.categoryFilter = document.getElementById('category-filter');
-    els.resetFilter = document.getElementById('reset-filter');
-    els.shopNow = document.getElementById('shop-now');
-
-    els.cartSidebar = document.querySelector('aside.cart');
-    els.cartItems = document.getElementById('cart-items');
-    els.cartTotal = document.getElementById('cart-total');
-    els.checkoutBtn = document.getElementById('checkout-btn');
-    els.clearCart = document.getElementById('clear-cart');
-    els.closeCart = document.getElementById('close-cart');
-
-    els.productModal = document.getElementById('product-modal');
-    els.modalBody = document.getElementById('modal-body');
-    els.closeModal = document.getElementById('close-modal');
-
-    els.authModal = document.getElementById('auth-modal');
-    els.authForm = document.getElementById('auth-form');
-    els.authTitle = document.getElementById('auth-title');
-    els.authIdentifier = document.getElementById('auth-identifier');
-    els.authPassword = document.getElementById('auth-password');
-    els.switchRegister = document.getElementById('switch-register');
-    els.closeAuth = document.getElementById('close-auth');
-
-    els.checkoutModal = document.getElementById('checkout-modal');
-    els.checkoutForm = document.getElementById('checkout-form');
-    els.closeCheckout = document.getElementById('close-checkout');
-    els.closeCheckout2 = document.getElementById('close-checkout-2');
-
-    els.addProductModal = document.getElementById('add-product-modal');
-    els.addProductForm = document.getElementById('add-product-form');
-    els.closeAddProduct = document.getElementById('close-add-product');
-    els.cancelAddProduct = document.getElementById('cancel-add-product');
-
-    els.toast = document.getElementById('toast');
-  }
-
-  /* ===== Helpers ===== */
-  function fmtRupiah(n){ return 'Rp' + Number(n||0).toLocaleString(); }
-  function showToast(msg, ms=2200){ if(!els.toast) return; els.toast.textContent = msg; els.toast.classList.remove('hidden'); clearTimeout(els._t); els._t=setTimeout(()=>els.toast.classList.add('hidden'), ms); }
-  function persistAll(){ S.set(KEY_CART, JSON.stringify(cart)); S.set(KEY_WISHLIST, JSON.stringify(wishlist)); S.set(KEY_ORDERS, JSON.stringify(orders)); S.set(KEY_USER, JSON.stringify(currentUser)); S.set(KEY_PRODUCTS, JSON.stringify(products)); }
-
-  /* ===== Render functions ===== */
-  function renderProducts(filter='Semua Kategori', search=''){
-    if(!els.productGrid) return;
-    els.productGrid.innerHTML = '';
-    const q=(search||'').trim().toLowerCase();
-    const filtered = products.filter(p => (filter==='Semua Kategori' || !filter) ? true : p.category === filter)
-                             .filter(p => !q || p.name.toLowerCase().includes(q) || (p.desc && p.desc.toLowerCase().includes(q)));
-    filtered.forEach(p=>{
-      const isFav = wishlist.includes(p.id);
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.setAttribute('data-id', p.id);
-      // we allow clicking on entire card to show detail, but action buttons inside have their own handlers
-      card.innerHTML = `
-        <img src="${p.image||'https://images.unsplash.com/photo-1542444459-db5bb0f7b7d6?auto=format&fit=crop&w=800&q=60'}" alt="${p.name}" loading="lazy" />
-        <h4>${p.name}</h4>
-        <div class="price">${fmtRupiah(p.price)}</div>
-        <div class="muted">${p.desc||''}</div>
-        <div class="actions">
-            <button class="add-to-cart" data-id="${p.id}" title="Tambah ke keranjang"><i class="fas fa-cart-plus"></i></button>
-            <button class="view-details" data-id="${p.id}" title="Detail"><i class="fas fa-eye"></i></button>
-            <button class="wishlist-toggle" data-id="${p.id}" title="Wishlist">${isFav?'<i class="fas fa-heart"></i>':'<i class="far fa-heart"></i>'}</button>
-            ${currentUser && currentUser.role === 'admin' ? `<button class="delete-product" data-id="${p.id}" title="Hapus Produk" style="color:var(--danger)"><i class="fas fa-trash"></i></button>` : ''}
-        </div>
-      `;
-      els.productGrid.appendChild(card);
-    });
-    els.totalProducts.textContent = filtered.length;
-  }
-
-  function initCategoryFilter(){
-    const cats = ['Semua Kategori', ...Array.from(new Set(products.map(p=>p.category)))];
-    els.categoryFilter.innerHTML = '';
-    cats.forEach(c => { const o=document.createElement('option'); o.value=c; o.textContent=c; els.categoryFilter.appendChild(o); });
-  }
-
-  function updateCartUI(){
-    if(!els.cartItems) return;
-    els.cartItems.innerHTML='';
-    let subtotal = 0;
-    cart.forEach(item=>{
-      subtotal += item.price * item.qty;
-      const r=document.createElement('div');
-      r.className='cart-item';
-      r.innerHTML = `
-        <div style="display:flex;gap:10px;align-items:center">
-          <img src="${item.image||''}" alt="${item.name}" />
-          <div>
-            <strong>${item.name}</strong><br><small>${fmtRupiah(item.price)} x ${item.qty}</small>
-            <div class="qty-controls" style="margin-top:6px">
-              <button class="qty-decrease" data-id="${item.id}">-</button>
-              <span style="padding:0 8px">${item.qty}</span>
-              <button class="qty-increase" data-id="${item.id}">+</button>
-            </div>
-          </div>
-        </div>
-        <div style="text-align:right">
-          <strong>${fmtRupiah(item.price * item.qty)}</strong><br>
-          <button class="remove-item" data-id="${item.id}" title="Hapus">Hapus</button>
-        </div>
-      `;
-      els.cartItems.appendChild(r);
-    });
-    const discount = computeBundleDiscount(cart);
-    const total = Math.max(0, subtotal - discount);
-    els.cartTotal.textContent = fmtRupiah(total);
-
-    if(cart.length>0){ els.cartCount.textContent = cart.reduce((s,i)=>s+i.qty,0); els.cartCount.style.display='inline-block'; } else { els.cartCount.style.display='none'; }
-    if(wishlist.length>0){ els.wishlistCount.textContent = wishlist.length; els.wishlistCount.style.display='inline-block'; } else { els.wishlistCount.style.display='none'; }
-
-    persistAll();
-  }
-
-  /* ===== Actions ===== */
-  function requireLoginForAction(){
-    if(currentUser) return true;
-    showToast('🔐 Silakan login terlebih dahulu');
-    els.authModal.classList.remove('hidden');
-    return false;
-  }
-
-  function addToCart(id, qty=1){
-    if(!requireLoginForAction()) return;
-    const pid = Number(id);
-    const p = products.find(x=>x.id===pid);
-    if(!p) return;
-    const ex = cart.find(i=>i.id===pid);
-    if(ex) ex.qty += qty; else cart.push({...p, qty});
-    updateCartUI();
-    showToast('🛒 Produk ditambahkan ke keranjang');
-  }
-
-  function toggleWishlist(id){
-    if(!requireLoginForAction()) return;
-    const pid = Number(id);
-    if(wishlist.includes(pid)) wishlist = wishlist.filter(x=>x!==pid); else wishlist.push(pid);
-    updateCartUI();
-    renderProducts((els.categoryFilter && els.categoryFilter.value) || 'Semua Kategori', (els.searchInput && els.searchInput.value) || '');
-    showToast(wishlist.includes(pid) ? '❤️ Ditambahkan ke wishlist' : '💔 Dihapus dari wishlist');
-  }
-
-  function openProductModal(id){
-    const p = products.find(x=>x.id===id);
-    if(!p) return;
-    els.modalBody.innerHTML = `
-      <img src="${p.image||''}" style="width:100%;height:220px;object-fit:cover;border-radius:8px;margin-bottom:10px" />
-      <h3>${p.name}</h3>
-      <div class="price">${fmtRupiah(p.price)}</div>
-      <p class="muted" style="margin-top:8px">${p.desc||''}</p>
-      <div style="display:flex;gap:8px;margin-top:12px">
-        <button id="modal-add" data-id="${p.id}" class="primary-btn">Tambah ke Keranjang</button>
-        <button id="modal-wish" data-id="${p.id}" class="icon-btn">Wishlist</button>
-        <button id="modal-buy" data-id="${p.id}" class="primary-btn" style="background:var(--success)">Beli Sekarang</button>
-      </div>
-    `;
-    els.productModal.classList.remove('hidden');
-
-    document.getElementById('modal-add').addEventListener('click', ()=>{ addToCart(p.id,1); els.productModal.classList.add('hidden'); });
-    document.getElementById('modal-wish').addEventListener('click', ()=>{ toggleWishlist(p.id); els.productModal.classList.add('hidden'); });
-    document.getElementById('modal-buy').addEventListener('click', ()=>{ addToCart(p.id,1); els.productModal.classList.add('hidden'); });
-  }
-
-  function computeBundleDiscount(cartArr){
-    if(!Array.isArray(cartArr) || cartArr.length===0) return 0;
-    const hasAyam = cartArr.some(i=>/ayam/i.test(i.name));
-    const hasTeh = cartArr.some(i=>/teh/i.test(i.name));
-    if(!(hasAyam && hasTeh)) return 0;
-    const subtotal = cartArr.reduce((s,i)=> (/ayam/i.test(i.name) || /teh/i.test(i.name)) ? s + i.price * i.qty : s, 0);
-    return Math.round(subtotal * 0.10);
-  }
-
-  function renderOrderHistoryModal(){
-    const stored = JSON.parse(S.get(KEY_ORDERS) || '[]');
-    let filtered = stored.slice().reverse();
-    if(currentUser && currentUser.role !== 'admin'){
-      filtered = filtered.filter(o => o.user === (currentUser.username || currentUser.email));
-    }
-    if(!filtered.length){
-      els.modalBody.innerHTML = '<p>Tidak ada pesanan.</p>';
-    } else {
-      const html = filtered.map(order=>{
-        const items = (order.items||[]).map(it=>`<div style="display:flex;justify-content:space-between"><span>${it.name} x${it.qty}</span><strong>${fmtRupiah(it.price*it.qty)}</strong></div>`).join('');
-        return `<div style="border:1px solid #eee;padding:10px;border-radius:8px;margin-bottom:10px;background:var(--card)"><div style="display:flex;justify-content:space-between"><strong>Order #${order.id}</strong><small>${new Date(order.createdAt).toLocaleString()}</small></div><div style="margin-top:8px">${items}</div><div style="text-align:right;margin-top:10px"><strong>Total: ${fmtRupiah(order.total)}</strong></div></div>`;
-      }).join('');
-      els.modalBody.innerHTML = `<h3>Riwayat Pesanan</h3><div style="max-height:50vh;overflow:auto;margin-top:8px">${html}</div>`;
-    }
-    els.productModal.classList.remove('hidden');
-  }
-
-  function showAddProductModal(){ els.addProductModal.classList.remove('hidden'); }
-  function hideAddProductModal(){ els.addProductModal.classList.add('hidden'); }
-  function addNewProduct(name, price, category, image){
-    const id = products.length ? Math.max(...products.map(p=>p.id)) + 1 : 1;
-    const p = { id, name, price: Number(price), category, image: image || '', desc: '' };
-    products.push(p);
-    persistAll();
-    renderProducts((els.categoryFilter && els.categoryFilter.value) || 'Semua Kategori', (els.searchInput && els.searchInput.value) || '');
-    initCategoryFilter();
-    showToast('✅ Produk berhasil ditambahkan');
-  }
-
-  /* ===== Events wiring ===== */
-  function attachEvents(){
-    // product grid - delegation
-    els.productGrid.addEventListener('click', (ev) => {
-      const btn = ev.target.closest('button');
-      if (btn) {
-        const idRaw = btn.dataset.id;
-        if (!idRaw) return;
-        const id = Number(idRaw);
-        if (!id) return;
-
-        if (btn.classList.contains('add-to-cart')) {
-          addToCart(id, 1);
-        } else if (btn.classList.contains('view-details')) {
-          openProductModal(id);
-        } else if (btn.classList.contains('wishlist-toggle')) {
-          toggleWishlist(id);
-        } else if (btn.classList.contains('delete-product')) {
-          // Hapus produk (admin only)
-          if (!currentUser || currentUser.role !== 'admin') {
-            showToast('❌ Hanya admin yang bisa menghapus produk');
-            return;
-          }
-          if (confirm('Yakin ingin menghapus produk ini?')) {
-            products = products.filter(p => p.id !== id);
-            persistAll();
-            renderProducts((els.categoryFilter && els.categoryFilter.value) || 'Semua Kategori', (els.searchInput && els.searchInput.value) || '');
-            initCategoryFilter();
-            showToast('🗑️ Produk berhasil dihapus');
-          }
-        }
-        return;
-      }
-
-      // klik area kartu -> buka detail
-      const card = ev.target.closest('.product-card');
-      if (card) {
-        const id = Number(card.getAttribute('data-id'));
-        if (id) openProductModal(id);
-      }
-    });
-
-    // cart item controls
-    els.cartItems.addEventListener('click',(ev)=>{
-      const t = ev.target;
-      if(t.classList.contains('qty-increase')){ const id=Number(t.dataset.id); const it=cart.find(x=>x.id===id); if(it){ it.qty++; updateCartUI(); } }
-      else if(t.classList.contains('qty-decrease')){ const id=Number(t.dataset.id); const it=cart.find(x=>x.id===id); if(it && it.qty>1){ it.qty--; updateCartUI(); } }
-      else if(t.classList.contains('remove-item')){ const id=Number(t.dataset.id); cart = cart.filter(x=>x.id!==id); updateCartUI(); showToast('🗑️ Item dihapus'); }
-    });
-
-    // header buttons
-    els.cartBtn.addEventListener('click', ()=> { window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}); });
-    els.clearCart.addEventListener('click', ()=> { cart=[]; updateCartUI(); showToast('🧹 Keranjang dikosongkan'); });
-    els.checkoutBtn.addEventListener('click', ()=> {
-      if(!cart.length){ showToast('🛒 Keranjang kosong'); return; }
-      if(!currentUser){ showToast('🔐 Silakan login'); els.authModal.classList.remove('hidden'); return; }
-      els.checkoutModal.classList.remove('hidden');
-    });
-    els.shopNow.addEventListener('click', ()=> document.getElementById('products-section').scrollIntoView({behavior:'smooth'}));
-
-    // search & filter
-    els.searchInput.addEventListener('input', ()=> renderProducts(els.categoryFilter.value, els.searchInput.value));
-    els.categoryFilter.addEventListener('change', ()=> renderProducts(els.categoryFilter.value, els.searchInput.value));
-    els.resetFilter.addEventListener('click', ()=> { els.searchInput.value=''; els.categoryFilter.value='Semua Kategori'; renderProducts(); });
-
-    // product modal close
-    els.closeModal.addEventListener('click', ()=> els.productModal.classList.add('hidden'));
-    els.productModal.addEventListener('click',(e)=> { if(e.target===els.productModal) els.productModal.classList.add('hidden'); });
-
-    // auth
-    els.loginBtn.addEventListener('click', ()=> { if(currentUser){ currentUser=null; persistAll(); updateUIForAuth(); showToast('👋 Logout berhasil'); } else els.authModal.classList.remove('hidden'); });
-    els.closeAuth.addEventListener('click', ()=> els.authModal.classList.add('hidden'));
-    els.switchRegister.addEventListener('click', ()=> { els.authTitle.textContent = els.authTitle.textContent.includes('Masuk') ? 'Daftar Akun Baru' : 'Masuk ke DapoerUyut'; });
-
-    els.authForm.addEventListener('submit',(ev)=>{
-      ev.preventDefault();
-      const idf = els.authIdentifier.value.trim();
-      const pwd = els.authPassword.value.trim();
-      const users = JSON.parse(S.get(KEY_USERS) || '[]');
-      if(els.authTitle.textContent.includes('Daftar')){
-        const username = idf.includes('@') ? idf.split('@')[0] : idf;
-        if(users.some(u=>u.username===username || u.email===idf)){ showToast('❌ Akun sudah terdaftar'); return; }
-        users.push({ username, password: pwd, role:'customer', email: idf.includes('@')?idf:username + '@local' });
-        S.set(KEY_USERS, JSON.stringify(users));
-        showToast('✅ Akun berhasil dibuat, silakan login');
-        els.authTitle.textContent = 'Masuk ke DapoerUyut';
-        els.authForm.reset();
-        return;
-      }
-      const found = users.find(u => (u.email===idf || u.username===idf) && u.password===pwd);
-      if(found){ currentUser = { username: found.username, role: found.role, email: found.email }; persistAll(); els.authModal.classList.add('hidden'); updateUIForAuth(); showToast('👋 Selamat datang, '+found.username); els.authForm.reset(); }
-      else showToast('❌ Email/Username atau password salah');
-    });
-
-    // checkout modal
-    els.closeCheckout.addEventListener('click', ()=> els.checkoutModal.classList.add('hidden'));
-    els.closeCheckout2.addEventListener('click', ()=> els.checkoutModal.classList.add('hidden'));
-    els.checkoutForm.addEventListener('submit',(ev)=>{
-      ev.preventDefault();
-      const inputs = Array.from(els.checkoutForm.querySelectorAll('input'));
-      const contact = {}; inputs.forEach((ip,i)=> contact['field'+i] = ip.value);
-      const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
-      const discount = computeBundleDiscount(cart);
-      const total = Math.max(0, subtotal - discount);
-      const order = { id: Date.now(), user: currentUser ? (currentUser.username||currentUser.email) : null, contact, items: cart.map(x=>({id:x.id,name:x.name,price:x.price,qty:x.qty})), subtotal, discount, total, createdAt: new Date().toISOString() };
-      orders.push(order);
-      S.set(KEY_ORDERS, JSON.stringify(orders));
-      cart = []; persistAll(); updateCartUI();
-      els.checkoutModal.classList.add('hidden');
-      showToast('🎉 Pesanan berhasil dibuat!');
-    });
-
-    // order history
-    els.orderHistoryBtn.addEventListener('click', ()=> {
-      if(!currentUser){ showToast('🔐 Silakan login'); els.authModal.classList.remove('hidden'); return; }
-      renderOrderHistoryModal();
-    });
-
-    // admin add product
-    els.addProductBtn.addEventListener('click', ()=> { if(!currentUser||currentUser.role!=='admin'){ showToast('🔐 Hanya admin'); return; } showAddProductModal(); });
-    els.closeAddProduct.addEventListener('click', hideAddProductModal);
-    els.cancelAddProduct.addEventListener('click', hideAddProductModal);
-    els.addProductForm.addEventListener('submit',(ev)=>{
-      ev.preventDefault();
-      const name=document.getElementById('p-name').value.trim();
-      const price=document.getElementById('p-price').value.trim();
-      const category=document.getElementById('p-category').value;
-      const image=document.getElementById('p-image').value.trim();
-      if(!name||!price){ showToast('Isi nama & harga'); return; }
-      addNewProduct(name, price, category, image);
-      els.addProductForm.reset();
-    });
-
-    // theme toggle
-    els.themeToggle.addEventListener('click', ()=> {
-      const now = document.body.classList.toggle('dark');
-      S.set(KEY_THEME, now ? 'dark':'light');
-      showToast(now ? '🌙 Mode gelap' : '☀️ Mode terang');
-    });
-
-    // close modals on outside click
-    document.querySelectorAll('.modal').forEach(m=> m.addEventListener('click',(e)=> { if(e.target===m) m.classList.add('hidden'); }));
-  }
-
-  /* ===== UI after auth changes ===== */
-  function updateUIForAuth(){
-    if(currentUser){
-      els.loginBtn.title = `Logout (${currentUser.username||currentUser.email})`;
-      if(currentUser.role === 'admin') els.adminControls.style.display = 'flex'; else els.adminControls.style.display = 'none';
-    } else {
-      els.loginBtn.title = 'Login';
-      els.adminControls.style.display = 'none';
-    }
-    // rerender products so admin buttons appear/disappear immediately
-    renderProducts((els.categoryFilter && els.categoryFilter.value) || 'Semua Kategori', (els.searchInput && els.searchInput.value) || '');
-  }
-
-  /* ===== Init boot ===== */
-  function init(){
-    mapEls();
-    // restore state
-    cart = JSON.parse(S.get(KEY_CART) || '[]');
-    wishlist = JSON.parse(S.get(KEY_WISHLIST) || '[]');
-    orders = JSON.parse(S.get(KEY_ORDERS) || '[]');
-    currentUser = JSON.parse(S.get(KEY_USER) || 'null');
-    products = JSON.parse(S.get(KEY_PRODUCTS) || '[]');
-
-    initCategoryFilter();
-    renderProducts();
-    updateCartUI();
-    attachEvents();
-    updateUIForAuth();
-    // theme
-    const th = S.get(KEY_THEME); if(th==='dark') document.body.classList.add('dark');
-  }
-
-  document.addEventListener('DOMContentLoaded', init);
-
-  // expose debug
-  window.DapoerUyut = { getCart: ()=>cart, getOrders: ()=>orders, getProducts: ()=>products, addToCart };
-  </script>
+  <div id="messages"></div>
+  <input id="chatInput" placeholder="Ketik pesan...">
+</div>
+
+<nav class="bottom-nav">
+  <div data-nav="home">🏠<br>Home</div>
+  <div data-nav="orders">📦<br>Pesanan</div>
+  <div id="chatToggle">💬<br>Chat</div>
+  <div data-nav="profile">👤<br>Akun</div>
+</nav>
+
+<script type="module" src="js/index.js"></script>
 </body>
 </html>
