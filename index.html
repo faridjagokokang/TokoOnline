@@ -35,51 +35,62 @@
 </div>
 
 <main id="app">
+
   <!-- Poster Promosi -->
    <section id="promoBanner" class="page">
-    <img src="images/promo.jpg" alt="Promo Banner" style="width: 100%;">
+    <img src="gambar/ayam-penuts-sauce.jpg" alt="Promo Banner" style="width: 100%;">
   </section>
 
   <section id="home" class="page active">
-    <div class="banner">FLASH SALE HARI INI</div>
+    <div class="banner">PAKET SPESIAL</div>
+    <div id="productToday" class="grid"></div>
+  </section>
+
+  <section id="home" class="page active">
+    <div class="banner">PRODUK</div>
+    <div id ="productCategories" class="categories">
+      <div data-category="all" class="category active">Semua</div>
+      <div data-category="makanan" class="category">Makanan</div>
+      <div data-category="minuman" class="category">Minuman</div>
+      <div data-category="Frozen Food" class="category">Frozen Food</div>
+    </div>
     <div id="productGrid" class="grid"></div>
   </section>
-
-  <section id="cart" class="page">
-    <h3>Keranjang</h3>
-    <div id="cartItems"></div>
-    <p>Total: Rp <span id="total">0</span></p>
-    <button id="checkoutBtn">Checkout</button>
-  </section>
-
-  <section id="orders" class="page">
-    <h3>Pesanan Saya</h3>
-    <div id="orderList"></div>
-  </section>
-
-  <section id="profile" class="page">
-    <h3>Akun</h3>
-    <div id="authArea"></div>
-  </section>
-
 </main>
+<footer>
+    <section id="cart" class="page">
+      <h3>Keranjang</h3>
+      <div id="cartItems"></div>
+      <p>Total: Rp <span id="total">0</span></p>
+      <button id="checkoutBtn">Checkout</button>
+    </section>
 
-<div id="chatBox" class="chat hidden">
-  <header>
-    Customer Service
-    <span id="closeChat">✖</span>
-  </header>
-  <div id="messages"></div>
-  <input id="chatInput" placeholder="Ketik pesan...">
-</div>
+    <section id="orders" class="page">
+      <h3>Pesanan Saya</h3>
+      <div id="orderList"></div>
+    </section>
 
-<nav class="bottom-nav">
-  <div data-nav="home">🏠<br>Home</div>
-  <div data-nav="orders">📦<br>Pesanan</div>
-  <div id="chatToggle">💬<br>Chat</div>
-  <div data-nav="profile">👤<br>Akun</div>
-</nav>
+    <section id="profile" class="page">
+      <h3>Akun</h3>
+      <div id="authArea"></div>
+    </section>
 
+  <div id="chatBox" class="chat hidden">
+    <header>
+      Customer Service
+      <span id="closeChat">✖</span>
+    </header>
+    <div id="messages"></div>
+    <input id="chatInput" placeholder="Ketik pesan...">
+  </div>
+
+  <nav class="bottom-nav">
+    <div data-nav="home">🏠<br>Home</div>
+    <div data-nav="orders">📦<br>Pesanan</div>
+    <div id="chatToggle">💬<br>Chat</div>
+    <div data-nav="profile">👤<br>Akun</div>
+  </nav>
+</footer>
 <script type="module" src="js/index.js"></script>
 </body>
 </html>

@@ -20,6 +20,8 @@ updateCartCount();
 renderLoginState();
 bindNavigation();
 bindHamburger();
+loadProductCategories();
+loadDummyExclusiveTodayProducts();
 loadDummyProducts();
 
 /* ===================== NAVIGATION ===================== */
@@ -61,22 +63,33 @@ function updateCartCount() {
   localStorage.setItem('cart', JSON.stringify(state.cart));
 }
 
-/* ===================== PRODUCTS (DUMMY) ===================== */
-function loadDummyProducts() {
-  const products = [
-    { id: 1, img: 'https://acmic.id/cdn/shop/files/AIRBASS_1_png_1000x.jpg?v=1729762854', name: 'Headset Gaming', price: 150000, Desc:'Headset gaming dengan suara jernih dan bass kuat untuk pengalaman bermain yang imersif.' },
-    { id: 2, img: 'https://picsum.photos/200?2', name: 'Mouse RGB', price: 80000, Desc:'Mouse gaming dengan lampu RGB yang dapat disesuaikan dan sensor presisi tinggi.' },
-    { id: 3, img: 'https://picsum.photos/200?3', name: 'Keyboard Mechanical', price: 250000, Desc:'Keyboard mekanik dengan respons cepat dan tahan lama.' },
-    { id: 4, img: 'https://picsum.photos/200?4', name: 'Stand HP', price: 30000, Desc:'Stand HP yang stabil dan praktis untuk penggunaan sehari-hari.' },
-    { id: 5, img: 'https://picsum.photos/200?5', name: 'Charger Fast', price: 90000, Desc:'Charger fast dengan daya tinggi untuk pengisian cepat.' },
-  ];
+/* ===================== BANNER PROMO ===================== */
 
-  const grid = document.getElementById('productGrid');
+/* ==================== EXCLUSIVE TODAY PRODUCTS (DUMMY) ===================== */
+function loadDummyExclusiveTodayProducts() {
+  const products = [
+    { 
+      id: 1,
+      img: 'gambar/crispy-hemat.jpg',
+      name: 'Paket Crispy Hemat',
+      price: 25000,
+      Desc: '1 pcs ayam crispy + nasi + saus sambal'
+    },
+    { 
+      id: 2,
+      img: 'gambar/keluarga-cuan.jpg',
+      name: 'Paket Keluarga Cuan',
+      price: 75000,
+      Desc: '4 pcs ayam crispy + 4 nasi + 4 saus sambal + 4 Kentang Goreng + Bebas pilih minuman variasi Teh'
+    },
+
+  ];
+  const grid = document.getElementById('productToday');
   grid.innerHTML = '';
 
   products.forEach(p => {
     const card = document.createElement('div');
-    card.style.background = '#fff';
+    card.style.background = '#f0be9aff';
     card.style.padding = '10px';
     card.style.borderRadius = '8px';
 
@@ -85,6 +98,122 @@ function loadDummyProducts() {
       <h3>${p.name}</h3>
       <h3>Rp ${p.price.toLocaleString()}</h3>
       <p>${p.Desc}</p>
+      <button>Keranjang</button>
+      <button>Beli</button>
+    `;
+
+    card.querySelector('button').addEventListener('click', () => {
+      addToCart(p);
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+/* ===================== PRODUCTS (DUMMY) ===================== */
+function loadProductCategories() {
+  const categories = [
+    { id: 'all', name: 'Semua' },
+    { id: 'makanan', name: 'Makanan' },
+    { id: 'minuman', name: 'Minuman' },
+    { id: 'Frozen Food', name: 'Frozen Food' }
+  ];
+
+  const categoriesContainer = document.getElementById('productCategories');
+  categoriesContainer.innerHTML = '';
+
+  categories.forEach(cat => {
+    const categoryElement = document.createElement('div');
+    categoryElement.setAttribute('data-category', cat.id);
+    categoryElement.classList.add('category');
+    if (cat.id === 'all') categoryElement.classList.add('active');
+    categoryElement.textContent = cat.name;
+    categoriesContainer.appendChild(categoryElement);
+  });
+}
+
+function loadDummyProducts() {
+  const products = [
+    { 
+      id: 1,
+      img: 'gambar/ayam-penuts-sauce.jpg',
+      name: 'Ayam Penuts Sauce',
+      price: 15000,
+      Desc: 'Ayam dengan saus kacang'
+    },
+    { 
+      id: 2,
+      img: 'gambar/ayam-bakar.jpg',
+      name: 'Ayam Bakar',
+      price: 80000,
+      Desc: 'Ayam bakar dengan bumbu khas.'
+    },
+    { 
+      id: 3,
+      img: 'gambar/ayam-katsu.jpg',
+      name: 'Ayam Katsu',
+      price: 25000,
+      Desc: 'Ayam goreng tepung ala Jepang.'
+    },
+    { 
+      id: 4,
+      img: 'gambar/Burger.jpg',
+      name: 'Burger',
+      price: 30000,
+      Desc: 'Burger dengan daging sapi dan sayuran segar.'
+    },
+    { 
+      id: 5,
+      img: 'gambar/kentang-goreng.jpg',
+      name: 'Kentang Goreng',
+      price: 15000,
+      Desc: 'Kentang goreng renyah dan gurih.'
+    },
+    { 
+      id: 6,
+      img: 'gambar/Ammericano.jpg',
+      name: 'Americano',
+      price: 20000,
+      Desc: 'Kopi Americano dengan rasa khas.'
+    },
+    { 
+      id: 7,
+      img: 'gambar/Cappucino.jpg',
+      name: 'Cappucino',
+      price: 25000,
+      Desc: 'Cappucino dengan busa susu lembut.'
+    },
+    { 
+      id: 8,
+      img: 'gambar/Caramel-coffee-milk.jpg',
+      name: 'Caramel Coffee Milk',
+      price: 28000,
+      Desc: 'Kopi karamel dengan susu yang lembut.'
+    },
+    {
+      id: 9,
+      img: 'gambar/Sushi-garing-keranjang.jpg',
+      name: 'Ikan Asin Keranjangan',
+      price: 10000,
+      Desc: 'Asin, Gurih, dan Maknyus'
+    },
+  ];
+
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+
+  products.forEach(p => {
+    const card = document.createElement('div');
+    card.style.background = '#f0be9aff';
+    card.style.padding = '10px';
+    card.style.borderRadius = '8px';
+
+    card.innerHTML = `
+      <b><img src="${p.img}" alt="${p.name}" style="width:100%; height:auto;"></b>
+      <h3>${p.name}</h3>
+      <h3>Rp ${p.price.toLocaleString()}</h3>
+      <p>${p.Desc}</p>
+      <button>Keranjang</button>
       <button>Beli</button>
     `;
 
