@@ -12,7 +12,7 @@
   <div class="header-top">
     <button id="hamburger" class="hamburger">☰</button>
     <div id="logo" data-nav="home">DapoerUyut</div>
-    <div id="cartBtn" data-nav="cart">
+    <div id="cartBtn">
       🛒 <span id="cartCount">0</span>
     </div>
   </div>
@@ -34,47 +34,75 @@
   <a href="login.html"><button id="loginBtn">Login</button></a>
 </div>
 
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-left">
+    <h1>Enjoy Your <span>Delicious Food</span></h1>
+    <p>Kami antar makanan kamu cepat, hangat, dan enak.</p>
+
+    <div class="hero-actions">
+      <button id="heroOrderBtn" class="order-btn">Order Now</button>
+      <button id="heroMenuBtn" class="play-btn">▶</button>
+    </div>
+
+    <div class="hero-categories">
+      <div>🍗 Ayam</div>
+      <div>🍔 Burger</div>
+      <div>☕ Kopi</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img src="gambar/promo1.jpg">
+  </div>
+</section>
+
 <main id="app">
 
-  <!-- Poster Promosi -->
-   <section id="promoBanner" class="page">
-    <img src="gambar/ayam-penuts-sauce.jpg" alt="Promo Banner" style="width: 100%;">
-  </section>
-
+  <!-- HOME -->
   <section id="home" class="page active">
     <div class="banner">PAKET SPESIAL</div>
     <div id="productToday" class="grid"></div>
   </section>
 
-  <section id="home" class="page active">
+  <!-- PRODUCTS -->
+  <section id="products" class="page">
     <div class="banner">PRODUK</div>
-    <div id ="productCategories" class="categories">
+
+    <div id="productCategories" class="categories">
       <div data-category="all" class="category active">Semua</div>
       <div data-category="makanan" class="category">Makanan</div>
       <div data-category="minuman" class="category">Minuman</div>
       <div data-category="Frozen Food" class="category">Frozen Food</div>
     </div>
+
     <div id="productGrid" class="grid"></div>
   </section>
+
 </main>
+
 <footer>
-    <section id="cart" class="page">
-      <h3>Keranjang</h3>
-      <div id="cartItems"></div>
-      <p>Total: Rp <span id="total">0</span></p>
-      <button id="checkoutBtn">Checkout</button>
-    </section>
+  <!-- CART -->
+  <section id="cart" class="page">
+    <h3>Keranjang</h3>
+    <div id="cartItems"></div>
+    <p>Total: Rp <span id="total">0</span></p>
+    <button id="checkoutBtn">Checkout</button>
+  </section>
 
-    <section id="orders" class="page">
-      <h3>Pesanan Saya</h3>
-      <div id="orderList"></div>
-    </section>
+  <!-- ORDERS -->
+  <section id="orders" class="page">
+    <h3>Pesanan Saya</h3>
+    <div id="orderList">(Belum ada pesanan)</div>
+  </section>
 
-    <section id="profile" class="page">
-      <h3>Akun</h3>
-      <div id="authArea"></div>
-    </section>
+  <!-- PROFILE -->
+  <section id="profile" class="page">
+    <h3>Akun</h3>
+    <div id="authArea"></div>
+  </section>
 
+  <!-- CHAT -->
   <div id="chatBox" class="chat hidden">
     <header>
       Customer Service
@@ -84,6 +112,7 @@
     <input id="chatInput" placeholder="Ketik pesan...">
   </div>
 
+  <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
     <div data-nav="home">🏠<br>Home</div>
     <div data-nav="orders">📦<br>Pesanan</div>
@@ -91,6 +120,7 @@
     <div data-nav="profile">👤<br>Akun</div>
   </nav>
 </footer>
+
 <script type="module" src="js/index.js"></script>
 </body>
 </html>
