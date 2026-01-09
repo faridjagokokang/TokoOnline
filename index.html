@@ -2,21 +2,19 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>NeoShop</title>
+  <title>DapoerUyut</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="header">
   <div class="header-top">
     <button id="hamburger" class="hamburger">☰</button>
     <div id="logo" data-nav="home">DapoerUyut</div>
-    <div id="cartBtn">
-      🛒 <span id="cartCount">0</span>
-    </div>
+    <div id="cartBtn">🛒 <span id="cartCount">0</span></div>
   </div>
-
   <div class="header-bottom">
     <input id="search" placeholder="Cari produk...">
   </div>
@@ -25,16 +23,18 @@
 <!-- SIDE MENU -->
 <div id="sideMenu" class="side-menu hidden">
   <div data-nav="home">🏠 Home</div>
+  <div data-nav="products">🛍️ Produk</div>
   <div data-nav="orders">📦 Pesanan</div>
   <div data-nav="profile">👤 Akun</div>
 </div>
 
+<!-- LOGIN BANNER -->
 <div id="loginBanner">
   <p>Tak kenal maka tak sayang</p>
   <a href="login.html"><button id="loginBtn">Login</button></a>
 </div>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
     <h1>Enjoy Your <span>Delicious Food</span></h1>
@@ -53,10 +53,13 @@
   </div>
 
   <div class="hero-right">
-    <img src="gambar/promo1.jpg">
+    <div class="hero-image-box">
+      <img src="gambar/promo1.jpg" alt="Promo">
+    </div>
   </div>
 </section>
 
+<!-- APP -->
 <main id="app">
 
   <!-- HOME -->
@@ -68,26 +71,25 @@
   <!-- PRODUCTS -->
   <section id="products" class="page">
     <div class="banner">PRODUK</div>
-
-    <div id="productCategories" class="categories">
-      <div data-category="all" class="category active">Semua</div>
-      <div data-category="makanan" class="category">Makanan</div>
-      <div data-category="minuman" class="category">Minuman</div>
-      <div data-category="Frozen Food" class="category">Frozen Food</div>
-    </div>
-
+    <div id="productCategories" class="categories"></div>
     <div id="productGrid" class="grid"></div>
   </section>
 
-</main>
-
-<footer>
   <!-- CART -->
   <section id="cart" class="page">
-    <h3>Keranjang</h3>
-    <div id="cartItems"></div>
-    <p>Total: Rp <span id="total">0</span></p>
-    <button id="checkoutBtn">Checkout</button>
+    <h3>Checkout</h3>
+<div id="cartItems"></div>
+<p>Total: Rp <span id="total">0</span></p>
+
+<form id="checkoutFormElement">
+  <input type="text" id="checkoutName" placeholder="Nama" required>
+  <input type="text" id="checkoutAddress" placeholder="Alamat" required>
+  <textarea id="checkoutNote" placeholder="Catatan (opsional)"></textarea>
+  <button type="button" id="submitOrder">Checkout Sekarang</button>
+</form>
+
+
+
   </section>
 
   <!-- ORDERS -->
@@ -102,24 +104,25 @@
     <div id="authArea"></div>
   </section>
 
-  <!-- CHAT -->
-  <div id="chatBox" class="chat hidden">
-    <header>
-      Customer Service
-      <span id="closeChat">✖</span>
-    </header>
-    <div id="messages"></div>
-    <input id="chatInput" placeholder="Ketik pesan...">
-  </div>
+</main>
 
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <div data-nav="home">🏠<br>Home</div>
-    <div data-nav="orders">📦<br>Pesanan</div>
-    <div id="chatToggle">💬<br>Chat</div>
-    <div data-nav="profile">👤<br>Akun</div>
-  </nav>
-</footer>
+<!-- CHAT -->
+<div id="chatBox" class="chat hidden">
+  <header>
+    Customer Service
+    <span id="closeChat">✖</span>
+  </header>
+  <div id="messages"></div>
+  <input id="chatInput" placeholder="Ketik pesan...">
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div data-nav="home">🏠<br>Home</div>
+  <div data-nav="products">🛍️<br>Produk</div>
+  <div id="chatToggle">💬<br>Chat</div>
+  <div data-nav="profile">👤<br>Akun</div>
+</nav>
 
 <script type="module" src="js/index.js"></script>
 </body>
