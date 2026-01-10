@@ -128,3 +128,6 @@ body {background: var(--bg-color); color: var(--dark-red);}
   outline: none;
   border: none;
 }
+ @media (max-width:768px) {
+  .bottom-nav {display:flex; justify-content:space-around; padding:12px 0;}
+ }
