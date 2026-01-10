@@ -26,7 +26,7 @@ body {background: var(--bg-color); color: var(--dark-red);}
 
 /* HERO */
 .hero {display:grid; grid-template-columns:1fr; gap:20px; padding:20px;}
-.hero-container {display:flex; gap:500px; align-items:center; margin-bottom:16px;}
+.hero-container {display:flex; gap:50px; align-items:center; margin-bottom:16px;}
 .hero-left h1 {font-size:32px;}
 .hero-left span {color: var(--red);}
 .hero-actions {display:flex; gap:10px; margin:16px 0;}
@@ -35,8 +35,8 @@ body {background: var(--bg-color); color: var(--dark-red);}
 .hero-categories {display:flex; gap:10px;}
 .hero-categories div {background: var(--light-red); padding:8px 14px; border-radius:999px; box-shadow:0 4px 12px rgba(0,0,0,.1); cursor:pointer;}
 .hero-right {display:flex; justify-content:center; align-items:center;}
-.hero-image-box {max-width:1000px; max-height:420px; width:100%; margin-left:auto; border-radius:24px; overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,.25);}
-.hero-image-box img {width:400px; height:100%; object-fit:cover; padding: 10;}
+.hero-image-box {max-width:500px; max-height:420px; width:100%; margin-left:auto; border-radius:24px; overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,.25);}
+.hero-image-box img {width:100%; height:100%; object-fit:cover; padding: 10;}
 
 /* PAGE HIDDEN */
 .page {display:none;}
