@@ -41,6 +41,7 @@ body {background: var(--bg-color); color: var(--dark-red);}
 @media (max-width:768px) {
   .hero-container {flex-direction:column; text-align:center;}
   .hero-right {margin-top:20px;}
+  .hero-image-box {max-width:100%; max-height:none;}
   .hero-image-box img {width:100%;}
 }
 
