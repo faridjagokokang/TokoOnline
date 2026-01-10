@@ -316,7 +316,30 @@ function loadDummyProducts() {
       Desc: 'rasanya mantap, seger, dan cihuy',
       category: 'minuman'
     },
-
+    {
+      id: 22,
+      img: 'gambar/ayam-potong-kiloan.jpg',
+      name: 'Ayam Potong Kiloan',
+      price: 25000,
+      Desc: 'Ayam potong kualitas terbaik',
+      category: 'Frozen Food'
+    },
+    {
+      id: 23,
+      img: 'gambar/ayam-potong-utuh.jpg',
+      name: 'Ayam Potong Utuh',
+      price: 50000,
+      Desc: 'Ayam potong utuh segar',
+      category: 'Frozen Food'
+    },
+    {
+      id: 24,
+      img: 'gambar/sayap-ayam-beku.jpg',
+      name: 'Sayap Ayam Beku',
+      price: 15000,
+      Desc: 'Sayap ayam beku segar',
+      category: 'Frozen Food'
+    }
   ];
   allProducts = products;
   renderCardList('productGrid', products);
