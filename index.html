@@ -36,25 +36,27 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <h1>Enjoy Your <span>Delicious Food</span></h1>
-    <p>Kami antar makanan kamu cepat, hangat, dan enak.</p>
+  <div class="hero-container">
+    <div class="hero-left">
+      <h1>Enjoy Your <span>Delicious Food</span></h1>
+      <p>Kami antar makanan kamu cepat, hangat, dan enak.</p>
 
-    <div class="hero-actions">
-      <button id="heroOrderBtn" class="order-btn">Order Now</button>
-      <button id="heroMenuBtn" class="play-btn">▶</button>
+      <div class="hero-actions">
+        <button id="heroOrderBtn" class="order-btn">Order Now</button>
+        <button id="heroMenuBtn" class="play-btn">▶</button>
+      </div>
+
+      <div class="hero-categories">
+        <div data-category="makanan">🍗 Ayam</div>
+        <div data-category="makanan">🍔 Burger</div>
+        <div data-category="minuman">☕ Kopi</div>
+      </div>
     </div>
 
-    <div class="hero-categories">
-      <div>🍗 Ayam</div>
-      <div>🍔 Burger</div>
-      <div>☕ Kopi</div>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <div class="hero-image-box">
-      <img src="gambar/promo1.jpg" alt="Promo">
+    <div class="hero-right">
+      <div class="hero-image-box">
+        <img src="gambar/flash-sale.jpg" alt="Promo">
+      </div>
     </div>
   </div>
 </section>
@@ -78,18 +80,15 @@
   <!-- CART -->
   <section id="cart" class="page">
     <h3>Checkout</h3>
-<div id="cartItems"></div>
-<p>Total: Rp <span id="total">0</span></p>
+    <div id="cartItems"></div>
+    <p>Total: Rp <span id="total">0</span></p>
 
-<form id="checkoutFormElement">
-  <input type="text" id="checkoutName" placeholder="Nama" required>
-  <input type="text" id="checkoutAddress" placeholder="Alamat" required>
-  <textarea id="checkoutNote" placeholder="Catatan (opsional)"></textarea>
-  <button type="button" id="submitOrder">Checkout Sekarang</button>
-</form>
-
-
-
+    <form id="checkoutForm">
+      <input type="text" id="checkoutName" placeholder="Nama" required>
+      <input type="text" id="checkoutAddress" placeholder="Alamat" required>
+      <textarea id="checkoutNote" placeholder="Catatan (opsional)"></textarea>
+      <button type="button" id="submitOrder">Checkout Sekarang</button>
+    </form>
   </section>
 
   <!-- ORDERS -->
@@ -105,6 +104,9 @@
   </section>
 
 </main>
+<footer>
+  &copy; 2024 DapoerUyut. All rights reserved.
+</footer>
 
 <!-- CHAT -->
 <div id="chatBox" class="chat hidden">

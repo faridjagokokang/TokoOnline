@@ -32,11 +32,16 @@ bindCheckout();
 renderOrderList();
 renderCart();
 
-/* ================= NAV ================= */
+/* ================= NAVIGATION ================= */
 function showPage(id) {
   pages.forEach(p => p.classList.remove('active'));
   const page = document.getElementById(id);
   if (page) page.classList.add('active');
+
+  // Hero cuma tampil di home
+  const hero = document.querySelector('.hero');
+  if (hero) hero.style.display = id === 'home' ? 'grid' : 'none';
+
   sideMenu.classList.add('hidden');
 }
 
@@ -75,7 +80,7 @@ function renderLoginState() {
   }
 }
 
-/* ================= CART CORE ================= */
+/* ================= CART ================= */
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(state.cart));
   updateCartCount();
@@ -93,6 +98,11 @@ function addToCart(product) {
   saveCart();
   alert('Ditambahkan ke keranjang');
 }
+
+document.getElementById('cartBtn').onclick = () => {
+  showPage('cart');
+  renderCart();
+};
 
 /* ================= PRODUCTS ================= */
 function loadDummyExclusiveTodayProducts() {
@@ -134,7 +144,6 @@ function loadProductCategories() {
 
 function loadDummyProducts() {
   const products = [
-    /* === DATA PRODUK === */
     { id: 1, img: 'gambar/ayam-penuts-sauce.jpg', name: 'Ayam Penuts Sauce', price: 15000, Desc: 'Ayam dengan saus kacang', category: 'makanan' },
     { id: 2, img: 'gambar/ayam-bakar.jpg', name: 'Ayam Bakar', price: 80000, Desc: 'Ayam bakar dengan bumbu khas.', category: 'makanan' },
     { id: 3, img: 'gambar/ayam-katsu.jpg', name: 'Ayam Katsu', price: 25000, Desc: 'Ayam goreng tepung ala Jepang.', category: 'makanan' },
@@ -145,8 +154,6 @@ function loadDummyProducts() {
     { id: 8, img: 'gambar/Caramel-coffee-milk.jpg', name: 'Caramel Coffee Milk', price: 28000, Desc: 'Kopi karamel dengan susu lembut.', category: 'minuman' },
     { id: 9, img: 'gambar/Sushi-garing-keranjang.jpg', name: 'Ikan Asin Keranjangan', price: 10000, Desc: 'Asin, Gurih, dan Maknyus', category: 'Frozen Food' },
     { id: 10, img: 'gambar/Sushi-garing-lendra.jpg', name: 'Ikan Asin Lendra', price: 20000, Desc: 'Rasa mantap, Gurih', category: 'Frozen Food' },
-    { id: 11, img: 'gambar/Sushi-garing-teri.jpg', name: 'Ikan Asin Teri', price: 20000, Desc: 'Rasa mantap, Gurih', category: 'Frozen Food' },
-    { id: 12, img: 'gambar/Sushi-garing-peda.jpg', name: 'Ikan Asin Peda', price: 30000, Desc: 'Rasa mantap, Gurih', category: 'Frozen Food' },
   ];
   allProducts = products;
   renderCardList('productGrid', products);
@@ -191,15 +198,9 @@ function bindSearch() {
 }
 
 /* ================= CART ================= */
-document.getElementById('cartBtn').onclick = () => {
-  showPage('cart');
-  renderCart();
-};
-
 function renderCart() {
   const wrap = document.getElementById('cartItems');
   const totalEl = document.getElementById('total');
-
   wrap.innerHTML = '';
   let total = 0;
 
@@ -244,20 +245,14 @@ function bindCheckout() {
   if (!checkoutBtn) return;
 
   checkoutBtn.onclick = () => {
-    if (state.cart.length === 0) {
-      alert('Keranjang masih kosong!');
-      return;
-    }
+    if (state.cart.length === 0) { alert('Keranjang masih kosong!'); return; }
 
     const total = state.cart.reduce((sum, item) => sum + item.product.price * item.qty, 0);
     const name = document.getElementById('checkoutName').value.trim();
     const address = document.getElementById('checkoutAddress').value.trim();
     const note = document.getElementById('checkoutNote').value.trim();
 
-    if (!name || !address) {
-      alert('Nama dan alamat harus diisi!');
-      return;
-    }
+    if (!name || !address) { alert('Nama dan alamat harus diisi!'); return; }
 
     const order = {
       id: Date.now(),
@@ -269,25 +264,21 @@ function bindCheckout() {
       date: new Date().toLocaleString(),
     };
 
-    // Simpan order
     state.orders.push(order);
     localStorage.setItem('orders', JSON.stringify(state.orders));
 
-    // Bersihkan cart
     state.cart = [];
     saveCart();
     renderCart();
     renderOrderList();
     showPage('home');
 
-    // Buat pesan WA
-    const waNumber = '6287755466436'; // ganti dengan nomor WA lo
-    const waMessage = `Halo, saya ingin memesan:\n${order.items.map(i => `${i.product.name} x${i.qty}`).join('\n')}\nTotal: Rp ${total.toLocaleString()}\nNama: ${name}\nAlamat: ${address}\nCatatan: ${note}`;
+    const waNumber = '6287755466436';
+    const waMessage = `Halo, saya ingin memesan:\n${order.items.map(i=>`${i.product.name} x${i.qty}`).join('\n')}\nTotal: Rp ${total.toLocaleString()}\nNama: ${name}\nAlamat: ${address}\nCatatan: ${note}`;
     const waURL = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
     window.open(waURL, '_blank');
   };
 }
-
 
 /* ================= ORDER HISTORY ================= */
 function renderOrderList() {
@@ -318,3 +309,12 @@ function bindHeroActions() {
   document.getElementById('heroOrderBtn')?.addEventListener('click', () => showPage('products'));
   document.getElementById('heroMenuBtn')?.addEventListener('click', () => showPage('home'));
 }
+
+/* ================= CHAT BOX ================= */
+const chatBox = document.getElementById('chatBox');
+document.getElementById('chatToggle').addEventListener('click', () => {
+  chatBox.style.display = chatBox.style.display === 'flex' ? 'none' : 'flex';
+});
+document.getElementById('closeChat').addEventListener('click', () => {
+  chatBox.style.display = 'none';
+});
