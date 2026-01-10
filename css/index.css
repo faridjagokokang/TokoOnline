@@ -40,7 +40,7 @@ body {background: var(--bg-color); color: var(--dark-red);}
 
 @media (max-width:768px) {
   .hero-container {flex-direction:column; text-align:center;}
-  .hero-right {margin-top:10px; width: 100%; height: 100%;}
+  .hero-right {margin-top:20px;}
 }
 
 /* PAGE HIDDEN */
