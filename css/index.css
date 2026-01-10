@@ -26,7 +26,7 @@ body {background: var(--bg-color); color: var(--dark-red);}
 
 /* HERO */
 .hero {display:grid; grid-template-columns:1fr; gap:20px; padding:20px;}
-.hero-container {display:flex; gap:50px; align-items:center; margin-bottom:16px;}
+.hero-container {display:flex; gap:300px; align-items:center; margin-bottom:16px;}
 .hero-left h1 {font-size:32px;}
 .hero-left span {color: var(--red);}
 .hero-actions {display:flex; gap:10px; margin:16px 0;}
