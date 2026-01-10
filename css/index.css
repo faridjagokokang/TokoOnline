@@ -39,7 +39,7 @@ body {background: var(--bg-color); color: var(--dark-red);}
 .hero-image-box img {width:500px; height:100%; object-fit:cover; padding: 10;}
 
 @media (max-width:768px) {
-  .hero-container {flex-direction:column; text-align:center;}
+  .hero-container {flex-direction:column; text-align:center; gap: 10px;}
   .hero-right {margin-top:20px;}
   .hero-image-box {max-width:100%; max-height:none;}
   .hero-image-box img {width:100%;}
